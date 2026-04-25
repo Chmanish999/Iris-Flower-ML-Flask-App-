@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 import pandas as pd
 import joblib
@@ -41,13 +40,7 @@ def predict():
             prediction_text="Predicted Iris Flower Species: " + predicted_species
         )
 
-    except:
-        return render_template(
-            "index.html",
-            prediction_text="Error: Please enter valid numeric values."
-        )
-
-    except:
+    except Exception:
         return render_template(
             "index.html",
             prediction_text="Error: Please enter valid numeric values."
