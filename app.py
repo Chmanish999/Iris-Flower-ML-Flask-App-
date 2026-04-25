@@ -20,6 +20,14 @@ def predict():
         petal_length = float(request.form["petal_length"])
         petal_width = float(request.form["petal_width"])
 
+        values = [sepal_length, sepal_width, petal_length, petal_width]
+
+        if any(v <= 0 for v in values):
+            return render_template(
+                "index.html",
+                prediction_text="Error: Flower measurements must be positive values only."
+            )
+
         input_data = pd.DataFrame(
             [[sepal_length, sepal_width, petal_length, petal_width]],
             columns=["sepal_length", "sepal_width", "petal_length", "petal_width"]
@@ -31,6 +39,12 @@ def predict():
         return render_template(
             "index.html",
             prediction_text="Predicted Iris Flower Species: " + predicted_species
+        )
+
+    except:
+        return render_template(
+            "index.html",
+            prediction_text="Error: Please enter valid numeric values."
         )
 
     except:
